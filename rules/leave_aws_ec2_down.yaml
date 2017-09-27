@@ -1,0 +1,18 @@
+---
+pack: "leave_them_down_st2"
+name: "leave_aws_ec2_down"
+description: "Leave AWS ec2 instances down."
+enabled: true
+
+trigger:
+  type: "leave_them_down_st2.aws_running_instances"
+
+criteria:
+    trigger:
+        type: "exists"
+        pattern: "InstanceIds"
+
+action:
+  ref: "leave_them_down_st2.aws_ec2_stop_instances"
+  parameters:
+    InstanceIds: "{{ trigger.InstanceIds }}"

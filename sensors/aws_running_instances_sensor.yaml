@@ -1,0 +1,10 @@
+---
+class_name: "AwsRunningInstancesSensor"
+entry_point: "aws_running_instances_sensor.py"
+description: "AWS running instances sensor."
+trigger_types:
+  -
+    name: "aws_running_instances"
+    description: "AWS running instances."
+    payload_schema:
+      type: "object"

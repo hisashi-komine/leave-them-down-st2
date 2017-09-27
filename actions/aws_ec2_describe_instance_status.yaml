@@ -1,0 +1,18 @@
+---
+pack: leave_them_down_st2
+enabled: true
+entry_point: aws.py
+name: aws_ec2_describe_instance_status
+runner_type: python-script
+parameters:
+  service_name:
+    default: ec2
+    immutable: true
+    type: string
+  action:
+    default: describe_instance_status
+    immutable: true
+    type: string
+  InstanceIds:
+    type: array
+    description: "One or more instance IDs. Default: Describes all your instances. Constraints: Maximum 100 explicitly specified instance IDs."

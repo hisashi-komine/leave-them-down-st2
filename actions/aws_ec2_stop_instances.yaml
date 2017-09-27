@@ -1,0 +1,19 @@
+---
+pack: leave_them_down_st2
+enabled: true
+entry_point: aws.py
+name: aws_ec2_stop_instances
+runner_type: python-script
+parameters:
+  service_name:
+    default: ec2
+    immutable: true
+    type: string
+  action:
+    default: stop_instances
+    immutable: true
+    type: string
+  InstanceIds:
+    type: array
+    description: "One or more instance IDs."
+    required: true
