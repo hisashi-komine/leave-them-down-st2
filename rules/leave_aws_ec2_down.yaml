@@ -13,6 +13,6 @@ criteria:
         pattern: "InstanceIds"
 
 action:
-  ref: "leave_them_down_st2.aws_ec2_stop_instances"
+  ref: "leave_them_down_st2.leave_aws_ec2_down"
   parameters:
     InstanceIds: "{{ trigger.InstanceIds }}"

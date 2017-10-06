@@ -1,0 +1,10 @@
+---
+pack: leave_them_down_st2
+enabled: true
+entry_point: slack_post_message.py
+name: slack_post_message
+runner_type: python-script
+parameters:
+  text:
+    type: string
+    required: true

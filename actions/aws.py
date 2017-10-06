@@ -18,6 +18,6 @@ class AwsAction(Action):
             if params:
                 return True, getattr(cli, action)(**params)
             else:
-                return True, getattr(cli, action)(**params)
+                return True, getattr(cli, action)()
         except ClientError as e:
             return False, e

@@ -15,4 +15,6 @@ parameters:
     type: string
   InstanceIds:
     type: array
-    description: "One or more instance IDs. Default: Describes all your instances. Constraints: Maximum 100 explicitly specified instance IDs."
+    description: >
+      One or more instance IDs. Default: Describes all your instances.
+      Constraints: Maximum 100 explicitly specified instance IDs.

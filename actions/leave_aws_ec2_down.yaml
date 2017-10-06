@@ -1,0 +1,11 @@
+---
+pack: leave_them_down_st2
+name: leave_aws_ec2_down
+enabled: true
+runner_type: mistral-v2
+entry_point: workflows/leave_aws_ec2_down.yaml
+parameters:
+  InstanceIds:
+    type: array
+    description: "One or more instance IDs."
+    required: true

@@ -1,0 +1,16 @@
+---
+pack: leave_them_down_st2
+name: jq
+enabled: true
+runner_type: python-script
+entry_point: jq_filter.py
+parameters:
+  input_object:
+    type: object
+  input_array:
+    type: array
+  input_string:
+    type: string
+  filter:
+    type: string
+    default: .

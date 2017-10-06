@@ -1,0 +1,54 @@
+version: '2.0'
+
+leave_them_down_st2.leave_aws_ec2_down:
+  type: direct
+  input:
+    - InstanceIds
+  tasks:
+    slack_post_start_message:
+      action: leave_them_down_st2.slack_post_message
+      input:
+        text: Please leave EC2 instances down. Stopping <% $.InstanceIds.join(', ') %>
+
+    aws_ec2_stop_instances:
+      action: leave_them_down_st2.aws_ec2_stop_instances
+      input:
+        InstanceIds: <% $.InstanceIds %>
+      on-success:
+        - aws_ec2_describe_instance_status
+      on-error:
+        - slack_post_error_message
+
+    aws_ec2_describe_instance_status:
+      action: leave_them_down_st2.aws_ec2_stop_instances
+      input:
+        InstanceIds: <% $.InstanceIds %>
+      retry:
+        count: 20
+        delay: 3
+        continue-on:
+          <%
+            with(
+              $.InstanceIds,
+              task(aws_ec2_describe_instance_status).result.result
+                .StoppingInstances?.where($.CurrentState.Name = 'stopped').select($.InstanceId)
+            ) -> not $1.toSet() <= $2.toSet()
+          %>
+      on-success:
+        - slack_post_success_message
+      on-error:
+        - slack_post_error_message
+
+    slack_post_success_message:
+      action: leave_them_down_st2.slack_post_message
+      input:
+        text: EC2 instances have perished!
+      on-success:
+        - succeed
+
+    slack_post_error_message:
+      action: leave_them_down_st2.slack_post_message
+      input:
+        text: EC2 instances have survived..
+      on-success:
+        - fail
